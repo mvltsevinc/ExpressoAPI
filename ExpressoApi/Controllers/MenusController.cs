@@ -26,5 +26,16 @@ namespace ExpressoApi.Controllers
             var menus = _expressoDbContext.Menus.Include("SubMenus");
             return Ok(menus);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetMenu(int id)
+        {
+            var menu = _expressoDbContext.Menus.Include("SubMenus").FirstOrDefault(x => x.Id == id);
+            if(menu == null)
+            {
+                return NotFound();
+            }
+            return Ok(menu);
+        }
     }
 }
